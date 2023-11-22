@@ -5,16 +5,14 @@
         static void Main()
         {
             Console.Write("Enter the path to the file: ");
-            string Text = FileDataManager.WritePathForTextInFile();
+            string Text = FileDataManager.GetTextFromFile();
 
-            ShowTextToolsResult.ShowSumOfElementsInText(Text);
+            var Data = TextTools.LineGetTaskInfo(Text);
 
-            Console.WriteLine("Line number with the highest amount: " + TextTools.LineNumberWithHighestSum(Text));
+            Console.WriteLine($"Line number with the highest amount: {Data.LineMaxSum}");
             Console.Write("List of lines with invalid elements: ");
 
-            List<int> Numbers = TextTools.LinesNumberWithInvalidElements(Text);
-
-            foreach (int num in Numbers)
+            foreach (int num in Data.LinesBroken)
             {
                 Console.Write($"{num} ");
             }

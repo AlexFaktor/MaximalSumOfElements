@@ -6,69 +6,41 @@ namespace MaximalSumOfElementsTests
     public class TextToolsTests
     {
         [TestMethod]
-        public void SumsOfElementsInText_WithNullInput_ThrowException()
+        public void LineGetTaskInfo_NullInput_ShouldThrowException()
         {
-            string? input = null;
+            string input = null;
 
-            Assert.ThrowsException<ArgumentNullException>(() => TextTools.SumsOfElementsInText(input));
+            Assert.ThrowsException<ArgumentNullException>(() => TextTools.LineGetTaskInfo(input));
         }
 
         [TestMethod]
-        public void SumsOfElementsInText_WithValidInput_ShouldReturnExpectedValue()
+        public void LineGetTaskInfo_WithValidInput_ShouldReturnExpectedValueLineMaxSum()
         {
-            string input = "2.0,0, 12.1, 100.5  \n" +
-                           "11, 0, 30, 40.4, 5  \n" +
-                           "invalidData         \n" +
-                           "0, 3, 12, 65, 0, 3  \n";
-
-            string[] actual = TextTools.SumsOfElementsInText(input);
-            string[] expected = { "114,6", "86,4", "Broken", "83", "Broken" };
-
-            CollectionAssert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
-        public void LineNumberWithHighestSum_WithNullInput_ThrowException()
-        {
-            string? input = null;
-
-            Assert.ThrowsException<ArgumentNullException>(() => TextTools.LineNumberWithHighestSum(input));
-        }
-
-        [TestMethod]
-        public void LineNumberWithHighestSum_WithValidInput_ShouldReturnExpectedValue()
-        {
-            string input = "2.0,0, 12.1, 100.5  \n" +
-                           "11, 0, 30, 40.4, 5  \n" +
-                           "invalidData         \n" +
-                           "0, 3, 12, 65, 0, 3  \n";
-
-            int actual = TextTools.LineNumberWithHighestSum(input);
+            string input = "2.0,0, 12.1, 100.5\n" +
+                           "11, 0, 30, 40.4, 5\n" +
+                           "invalidData\n" +
+                           "0, 3, 12, 65, 0, 3\n" +
+                           "";
             int expected = 1;
 
-            Assert.AreEqual(expected, actual);
+            var actual = TextTools.LineGetTaskInfo(input);
+
+            Assert.AreEqual(expected, actual.LineMaxSum);
         }
 
         [TestMethod]
-        public void LinesNumberWithInvalidElements_WithNullInput_ThrowException()
+        public void LineGetTaskInfo_WithValidInput_ShouldReturnExpectedValueLinesBroken()
         {
-            string? input = null;
-
-            Assert.ThrowsException<ArgumentNullException>(() => TextTools.LinesNumberWithInvalidElements(input));
-        }
-
-        [TestMethod]
-        public void LinesNumberWithInvalidElements_WithValidInput_ShouldReturnExpectedValue()
-        {
-            string input = "2.0,0, 12.1, 100.5  \n" +
-                           "11, 0, 30, 40.4, 5  \n" +
-                           "invalidData         \n" +
-                           "0, 3, 12, 65, 0, 3  \n";
-
-            List<int> actual = TextTools.LinesNumberWithInvalidElements(input);
+            string input = "2.0,0, 12.1, 100.5\n" +
+                           "11, 0, 30, 40.4, 5\n" +
+                           "invalidData\n" +
+                           "0, 3, 12, 65, 0, 3\n" +
+                           "";
             List<int> expected = new() { 3, 5 };
 
-            CollectionAssert.AreEqual(expected, actual);
+            var actual = TextTools.LineGetTaskInfo(input);
+
+            CollectionAssert.AreEqual(expected, actual.LinesBroken);
         }
     }
 }

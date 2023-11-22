@@ -5,7 +5,7 @@
         /// <summary>
         /// The method accepts the path to the file from the user, and then returns the entire text of the file
         /// </summary>
-        public static string WritePathForTextInFile()
+        public static string GetTextFromFile()
         {
             string path = Console.ReadLine() ?? throw new ArgumentNullException();
 
