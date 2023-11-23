@@ -2,19 +2,28 @@
 {
     public class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
-            Console.Write("Enter the path to the file: ");
-            string Text = FileDataManager.GetTextFromFile();
+            string Text;
+
+            try
+            {
+                Text = File.ReadAllText(args[0]);
+            }
+            catch
+            {
+                Console.Write("Enter the path to the file: ");
+                Text = FileDataManager.GetTextFromFile();
+            }  
 
             var Data = TextTools.LineGetTaskInfo(Text);
 
-            Console.WriteLine($"Line number with the highest amount: {Data.LineMaxSum}");
+            Console.WriteLine($"Line number with the highest amount: {Data.LineMaxSum + 1}");
             Console.Write("List of lines with invalid elements: ");
 
             foreach (int num in Data.LinesBroken)
             {
-                Console.Write($"{num} ");
+                Console.Write($"{num + 1} ");
             }
         }
     }
