@@ -5,7 +5,6 @@ namespace Maximal_sum_of_elements
     public class TextTools
     {
         public record DataForTask(int LineMaxSum, List<int> LinesBroken);
-        
 
         /// <summary>
         /// Receives text and returns the sum of elements in it, if it fails, marks it as "Broken line" 
@@ -22,7 +21,6 @@ namespace Maximal_sum_of_elements
 
             string[] numString = line.Split(',');
             double[] numsDouble = new double[numString.Length];
-
             double sum = 0;
 
             for (int i = 0; i < numString.Length; i++)
@@ -72,7 +70,6 @@ namespace Maximal_sum_of_elements
                     brokenElements.Add(i);
                 }
             }
-
             DataForTask dataForTask = new(indexMaxSum, brokenElements);
 
             return dataForTask;

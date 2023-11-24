@@ -14,7 +14,7 @@
             {
                 Console.Write("Enter the path to the file: ");
                 Text = FileDataManager.GetTextFromFile();
-            }  
+            }
 
             var Data = TextTools.LineGetTaskInfo(Text);
 
