@@ -14,26 +14,16 @@ namespace Maximal_sum_of_elements
             if (line == null)
                 throw new ArgumentNullException(nameof(line));
 
-            NumberFormatInfo numberFormatInfo = new()
-            {
-                NumberDecimalSeparator = ".",
-            };
-
             string[] numString = line.Split(',');
             double[] numsDouble = new double[numString.Length];
             double sum = 0;
 
             for (int i = 0; i < numString.Length; i++)
             {
-                try
-                {
-                    numsDouble[i] = double.Parse(numString[i], numberFormatInfo);
+                if (double.TryParse(numString[i], NumberStyles.Any, CultureInfo.InvariantCulture, out numsDouble[i]))
                     sum += numsDouble[i];
-                }
-                catch
-                {
-                    throw new ArgumentException("Incorrect input");
-                }
+                else
+                    throw new ArgumentException("Cannot add an item");
             }
 
             return sum;

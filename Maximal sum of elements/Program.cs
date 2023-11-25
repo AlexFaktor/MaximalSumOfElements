@@ -4,19 +4,21 @@
     {
         static void Main(string[] args)
         {
-            string Text;
+            string text;
 
             try
             {
-                Text = File.ReadAllText(args[0]);
+                text = File.ReadAllText(args[0]);
             }
             catch
             {
                 Console.Write("Enter the path to the file: ");
-                Text = FileDataManager.GetTextFromFile();
+                text = File.ReadAllText(Console.ReadLine()
+                    ?? throw new ArgumentNullException())
+                    ?? throw new FileLoadException();
             }
 
-            var Data = TextTools.LineGetTaskInfo(Text);
+            var Data = TextTools.LineGetTaskInfo(text);
 
             Console.WriteLine($"Line number with the highest amount: {Data.LineMaxSum + 1}");
             Console.Write("List of lines with invalid elements: ");
