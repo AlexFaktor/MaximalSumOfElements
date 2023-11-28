@@ -15,17 +15,16 @@ namespace MaximalSumOfElements
                 throw new ArgumentNullException(nameof(line));
 
             string[] numString = line.Split(',');
-            double[] numsDouble = new double[numString.Length];
             sum = 0;
 
             for (int i = 0; i < numString.Length; i++)
             {
-                if (!double.TryParse(numString[i], NumberStyles.Any, CultureInfo.InvariantCulture, out numsDouble[i]))
+                if (!double.TryParse(numString[i], NumberStyles.Any, CultureInfo.InvariantCulture, out double num))
                 {
                     return false; 
                 }
 
-                sum += numsDouble[i];
+                sum += num;
             }
 
             return true;

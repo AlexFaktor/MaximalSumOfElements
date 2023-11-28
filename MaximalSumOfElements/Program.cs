@@ -2,17 +2,20 @@
 {
     public class Program
     {
-        private static string GetFilePathFromUser()
-        {
-            Console.Write("Enter the path to the file: ");
-            return Console.ReadLine();
-        }
-
         static void Main(string[] args)
         {
-            string text = args.Length == 1 ? File.ReadAllText(args[0]) : File.ReadAllText(GetFilePathFromUser());
+            var filePath = args.Length > 0 ? args[0] : null;
 
-            var data = TextTools.LineGetTaskInfo(text);
+            if (string.IsNullOrEmpty(filePath))
+            {
+                Console.Write("Enter the path to the file: ");
+                filePath = Console.ReadLine();
+            }
+
+            if (!File.Exists(filePath))
+                throw new FileNotFoundException($"The file was not found {filePath}");
+            
+            var data = TextTools.LineGetTaskInfo(File.ReadAllText(filePath));
 
             Console.WriteLine($"Line number with the highest amount: {data.LineMaxSum + 1}");
             Console.Write("List of lines with invalid elements: ");

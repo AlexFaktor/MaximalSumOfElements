@@ -20,55 +20,29 @@ namespace MaximalSumOfElementsTests
 
         private static string RunConsoleApp(string pathToExe, string? args, string? consoleInput)
         {
-            string? actualOutput;
-
-            if (!string.IsNullOrEmpty(args))
+            var psi = new ProcessStartInfo
             {
-                if (File.Exists(pathToExe))
-                {
-                    var psi = new ProcessStartInfo
-                    {
-                        FileName = pathToExe,
-                        Arguments = args,
-                        RedirectStandardInput = true,
-                        RedirectStandardOutput = true,
-                        UseShellExecute = false,
-                        CreateNoWindow = true
-                    };
-                    var process = Process.Start(psi);
+                FileName = pathToExe,
+                Arguments = args,
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+            var process = Process.Start(psi)!;
 
-                    StreamReader reader = process.StandardOutput;
-                    actualOutput = reader.ReadToEnd();
-                    process.WaitForExit();
-
-                    return actualOutput;
-                }
-                else throw new Exception();
-            }
+            // write input
             if (!string.IsNullOrEmpty(consoleInput))
             {
-                if (File.Exists(pathToExe))
-                {
-                    var psi = new ProcessStartInfo
-                    {
-                        FileName = pathToExe,
-                        RedirectStandardInput = true,
-                        RedirectStandardOutput = true,
-                        UseShellExecute = false,
-                        CreateNoWindow = true
-                    };
-                    var process = Process.Start(psi);
-                    process.StandardInput.WriteLine(consoleInput);
-
-                    StreamReader reader = process.StandardOutput;
-                    actualOutput = reader.ReadToEnd();
-                    process.WaitForExit();
-
-                    return actualOutput;
-                }
-                else throw new Exception();
+                process.StandardInput.WriteLine(consoleInput);
             }
-            else throw new Exception();
+
+            var reader = process.StandardOutput;
+            var actualOutput = reader.ReadToEnd();
+
+            process.WaitForExit();
+
+            return actualOutput;
         }
 
         [TestInitialize]
@@ -77,6 +51,19 @@ namespace MaximalSumOfElementsTests
             pathToExe = Path.Combine(Directory.GetCurrentDirectory(), "MaximalSumOfElements.exe");
             tempFilePath = Path.Combine(Path.GetTempPath(), "tempFile.txt");
             File.WriteAllText(tempFilePath, content);
+        }
+
+        [TestMethod]
+        public void LineGetTaskInfo_WithValidInputNegativeNumbers_ShouldReturnExpectedValue()
+        {
+            string input = "0, -1, -2, -4\n-100, -200, 1.3\n-10, -2";
+            int expectedLineMaxSum = 0;
+            List<int> expectedLinesBroken = new() { };
+
+            var actual = TextTools.LineGetTaskInfo(input);
+
+            Assert.AreEqual(expectedLineMaxSum, actual.LineMaxSum);
+            CollectionAssert.AreEqual(expectedLinesBroken, actual.LinesBroken);
         }
 
         [TestMethod]
