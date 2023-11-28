@@ -6,24 +6,22 @@
         {
             string text;
 
-            try
+            if(args.Length == 1)
             {
                 text = File.ReadAllText(args[0]);
             }
-            catch
+            else
             {
                 Console.Write("Enter the path to the file: ");
-                text = File.ReadAllText(Console.ReadLine()
-                    ?? throw new ArgumentNullException())
-                    ?? throw new FileLoadException();
+                text = File.ReadAllText(Console.ReadLine());
             }
 
-            var Data = TextTools.LineGetTaskInfo(text);
+            var data = TextTools.LineGetTaskInfo(text);
 
-            Console.WriteLine($"Line number with the highest amount: {Data.LineMaxSum + 1}");
+            Console.WriteLine($"Line number with the highest amount: {data.LineMaxSum + 1}");
             Console.Write("List of lines with invalid elements: ");
 
-            foreach (int num in Data.LinesBroken)
+            foreach (int num in data.LinesBroken)
             {
                 Console.Write($"{num + 1} ");
             }

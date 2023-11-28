@@ -18,50 +18,55 @@ namespace MaximalSumOfElementsTests
                 "0,0,0\n" +
                 "Broken";
 
-        private static string RunConsoleAppWithArguments(string pathToExe, string args)
+        private static string RunConsoleApp(string pathToExe, string? args, string? consoleInput)
         {
-            if (File.Exists(pathToExe))
+            string? actualOutput;
+
+            if (!string.IsNullOrEmpty(args))
             {
-                var psi = new ProcessStartInfo
+                if (File.Exists(pathToExe))
                 {
-                    FileName = pathToExe,
-                    Arguments = args,
-                    RedirectStandardInput = true,
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-                var process = Process.Start(psi);
+                    var psi = new ProcessStartInfo
+                    {
+                        FileName = pathToExe,
+                        Arguments = args,
+                        RedirectStandardInput = true,
+                        RedirectStandardOutput = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    };
+                    var process = Process.Start(psi);
 
-                StreamReader reader = process.StandardOutput;
-                string actualOutput = reader.ReadToEnd();
-                process.WaitForExit();
+                    StreamReader reader = process.StandardOutput;
+                    actualOutput = reader.ReadToEnd();
+                    process.WaitForExit();
 
-                return actualOutput;
+                    return actualOutput;
+                }
+                else throw new Exception();
             }
-            else throw new Exception();
-        }
-
-        private static string RunConsoleAppWithoutArguments(string pathToExe, string consoleInput)
-        {
-            if (File.Exists(pathToExe))
+            if (!string.IsNullOrEmpty(consoleInput))
             {
-                var psi = new ProcessStartInfo
+                if (File.Exists(pathToExe))
                 {
-                    FileName = pathToExe,
-                    RedirectStandardInput = true,
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-                var process = Process.Start(psi);
-                process.StandardInput.WriteLine(consoleInput);
+                    var psi = new ProcessStartInfo
+                    {
+                        FileName = pathToExe,
+                        RedirectStandardInput = true,
+                        RedirectStandardOutput = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    };
+                    var process = Process.Start(psi);
+                    process.StandardInput.WriteLine(consoleInput);
 
-                StreamReader reader = process.StandardOutput;
-                string actualOutput = reader.ReadToEnd();
-                process.WaitForExit();
+                    StreamReader reader = process.StandardOutput;
+                    actualOutput = reader.ReadToEnd();
+                    process.WaitForExit();
 
-                return actualOutput;
+                    return actualOutput;
+                }
+                else throw new Exception();
             }
             else throw new Exception();
         }
@@ -103,7 +108,7 @@ namespace MaximalSumOfElementsTests
 
             string currentDirectory = Directory.GetCurrentDirectory();
             string pathToExe = Path.Combine(currentDirectory, "MaximalSumOfElements.exe");
-            string actualOutput = TextToolsTests.RunConsoleAppWithArguments(pathToExe, tempFilePath);
+            string actualOutput = TextToolsTests.RunConsoleApp(pathToExe, consoleInput: null, args: tempFilePath);
 
             Assert.AreEqual(expectedOutput, actualOutput);
         }
@@ -116,7 +121,7 @@ namespace MaximalSumOfElementsTests
 
             string currentDirectory = Directory.GetCurrentDirectory();
             string pathToExe = Path.Combine(currentDirectory, "MaximalSumOfElements.exe");
-            string actualOutput = TextToolsTests.RunConsoleAppWithoutArguments(pathToExe, tempFilePath);
+            string actualOutput = TextToolsTests.RunConsoleApp(pathToExe, args: null ,consoleInput : tempFilePath);
 
             Assert.AreEqual(expectedOutput, actualOutput);
         }
