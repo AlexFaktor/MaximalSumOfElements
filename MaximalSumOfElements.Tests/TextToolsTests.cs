@@ -1,4 +1,4 @@
-using Maximal_sum_of_elements;
+using MaximalSumOfElements;
 using System.Diagnostics;
 
 namespace MaximalSumOfElementsTests

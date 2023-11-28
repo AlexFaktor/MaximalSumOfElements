@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Maximal_sum_of_elements
+namespace MaximalSumOfElements
 {
     public class TextTools
     {

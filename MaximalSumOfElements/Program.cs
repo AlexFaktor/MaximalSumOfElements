@@ -1,4 +1,4 @@
-﻿namespace Maximal_sum_of_elements
+﻿namespace MaximalSumOfElements
 {
     public class Program
     {

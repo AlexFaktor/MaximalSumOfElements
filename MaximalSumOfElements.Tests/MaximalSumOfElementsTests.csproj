@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Maximal sum of elements\MaximalSumOfElements.csproj" />
+    <ProjectReference Include="..\MaximalSumOfElements\MaximalSumOfElements.csproj" />
   </ItemGroup>
 
 </Project>
