@@ -9,24 +9,26 @@ namespace MaximalSumOfElements
         /// <summary>
         /// Receives text and returns the sum of elements in it, if it fails, marks it as "Broken line" 
         /// </summary>
-        private static double SumOfElementsInLine(string line)
+        private static bool SumOfElementsInLine(string line, out double sum)
         {
             if (line == null)
                 throw new ArgumentNullException(nameof(line));
 
             string[] numString = line.Split(',');
             double[] numsDouble = new double[numString.Length];
-            double sum = 0;
+            sum = 0;
 
             for (int i = 0; i < numString.Length; i++)
             {
-                if (double.TryParse(numString[i], NumberStyles.Any, CultureInfo.InvariantCulture, out numsDouble[i]))
-                    sum += numsDouble[i];
-                else
-                    throw new ArgumentException("Cannot add an item");
+                if (!double.TryParse(numString[i], NumberStyles.Any, CultureInfo.InvariantCulture, out numsDouble[i]))
+                {
+                    return false; 
+                }
+
+                sum += numsDouble[i];
             }
 
-            return sum;
+            return true;
         }
 
         /// <summary>
@@ -45,19 +47,15 @@ namespace MaximalSumOfElements
 
             for (int i = 0; i < textLines.Length; i++)
             {
-                try
-                {
-                    double lineSum = SumOfElementsInLine(textLines[i]);
-
-                    if (lineSum > maxSum)
-                    {
-                        indexMaxSum = i;
-                        maxSum = lineSum;
-                    }
-                }
-                catch
+                double lineSum = 0;
+                if (!SumOfElementsInLine(textLines[i], out lineSum))
                 {
                     brokenElements.Add(i);
+                }
+                if (lineSum > maxSum)
+                {
+                    indexMaxSum = i;
+                    maxSum = lineSum;
                 }
             }
             DataForTask dataForTask = new(indexMaxSum, brokenElements);

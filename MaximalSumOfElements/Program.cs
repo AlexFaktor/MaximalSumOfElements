@@ -2,19 +2,15 @@
 {
     public class Program
     {
+        private static string GetFilePathFromUser()
+        {
+            Console.Write("Enter the path to the file: ");
+            return Console.ReadLine();
+        }
+
         static void Main(string[] args)
         {
-            string text;
-
-            if(args.Length == 1)
-            {
-                text = File.ReadAllText(args[0]);
-            }
-            else
-            {
-                Console.Write("Enter the path to the file: ");
-                text = File.ReadAllText(Console.ReadLine());
-            }
+            string text = args.Length == 1 ? File.ReadAllText(args[0]) : File.ReadAllText(GetFilePathFromUser());
 
             var data = TextTools.LineGetTaskInfo(text);
 
