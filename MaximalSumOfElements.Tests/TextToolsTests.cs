@@ -60,7 +60,7 @@ namespace MaximalSumOfElementsTests
             int expectedLineMaxSum = 0;
             List<int> expectedLinesBroken = new() { };
 
-            var actual = TextTools.LineGetTaskInfo(input);
+            var actual = TextTools.GetIndexLineMaxSumAndIndexesIncorrectLines(input);
 
             Assert.AreEqual(expectedLineMaxSum, actual.LineMaxSum);
             CollectionAssert.AreEqual(expectedLinesBroken, actual.LinesBroken);
@@ -71,7 +71,7 @@ namespace MaximalSumOfElementsTests
         {
             string? input = null;
 
-            Assert.ThrowsException<ArgumentNullException>(() => TextTools.LineGetTaskInfo(input));
+            Assert.ThrowsException<ArgumentNullException>(() => TextTools.GetIndexLineMaxSumAndIndexesIncorrectLines(input));
         }
 
         [TestMethod]
@@ -81,7 +81,7 @@ namespace MaximalSumOfElementsTests
             int expectedLineMaxSum = 6;
             List<int> expectedLinesBroken = new() { 3, 4, 5, 8 };
 
-            var actual = TextTools.LineGetTaskInfo(input);
+            var actual = TextTools.GetIndexLineMaxSumAndIndexesIncorrectLines(input);
 
             Assert.AreEqual(expectedLineMaxSum, actual.LineMaxSum);
             CollectionAssert.AreEqual(expectedLinesBroken, actual.LinesBroken);

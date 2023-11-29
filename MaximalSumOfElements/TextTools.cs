@@ -33,7 +33,7 @@ namespace MaximalSumOfElements
         /// <summary>
         /// Returns a record containing the number of the line with the largest amount and a list of broken lines
         /// </summary>
-        public static DataForTask LineGetTaskInfo(string text)
+        public static DataForTask GetIndexLineMaxSumAndIndexesIncorrectLines(string text)
         {
             if (text == null)
                 throw new ArgumentNullException(nameof(text));

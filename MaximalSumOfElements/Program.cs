@@ -15,7 +15,7 @@
             if (!File.Exists(filePath))
                 throw new FileNotFoundException($"The file was not found {filePath}");
             
-            var data = TextTools.LineGetTaskInfo(File.ReadAllText(filePath));
+            var data = TextTools.GetIndexLineMaxSumAndIndexesIncorrectLines(File.ReadAllText(filePath));
 
             Console.WriteLine($"Line number with the highest amount: {data.LineMaxSum + 1}");
             Console.Write("List of lines with invalid elements: ");
