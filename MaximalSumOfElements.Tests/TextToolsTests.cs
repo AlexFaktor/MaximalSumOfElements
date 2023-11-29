@@ -6,9 +6,8 @@ namespace MaximalSumOfElementsTests
     [TestClass]
     public class TextToolsTests
     {
-        private string? pathToExe;
         private string? tempFilePath;
-        private string content = "1\n" +
+        private readonly string content = "1\n" +
                 "1, 1.0, 0.5, 100  , 5\n" +
                 "500, 100, 0\n" +
                 "Broken\n" +
