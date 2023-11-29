@@ -6,9 +6,9 @@ namespace MaximalSumOfElementsTests
     [TestClass]
     public class TextToolsTests
     {
-        public string? pathToExe;
-        public string? tempFilePath;
-        public string content = "1\n" +
+        private string? pathToExe;
+        private string? tempFilePath;
+        private string content = "1\n" +
                 "1, 1.0, 0.5, 100  , 5\n" +
                 "500, 100, 0\n" +
                 "Broken\n" +
@@ -45,19 +45,11 @@ namespace MaximalSumOfElementsTests
             return actualOutput;
         }
 
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            pathToExe = Path.Combine(Directory.GetCurrentDirectory(), "MaximalSumOfElements.exe");
-            tempFilePath = Path.Combine(Path.GetTempPath(), "tempFile.txt");
-            File.WriteAllText(tempFilePath, content);
-        }
-
         [TestMethod]
         public void LineGetTaskInfo_WithValidInputNegativeNumbers_ShouldReturnExpectedValue()
         {
-            string input = "0, -1, -2, -4\n-100, -200, 1.3\n-10, -2";
-            int expectedLineMaxSum = 0;
+            string input = "-100, -200, 1.3\n0, -1, -2, -4\n-10, -2";
+            int expectedLineMaxSum = 1;
             List<int> expectedLinesBroken = new() { };
 
             var actual = TextTools.GetIndexLineMaxSumAndIndexesIncorrectLines(input);
@@ -90,6 +82,9 @@ namespace MaximalSumOfElementsTests
         [TestMethod]
         public void Main_WithValidInputWithArguments_ShouldReturnExpectedValue()
         {
+            tempFilePath = Path.Combine(Path.GetTempPath(), "tempFile.txt");
+            File.WriteAllText(tempFilePath, content);
+
             string expectedOutput = "Line number with the highest amount: 7\r\n" +
                                     "List of lines with invalid elements: 4 5 6 9 ";
 
@@ -103,6 +98,9 @@ namespace MaximalSumOfElementsTests
         [TestMethod]
         public void Main_WithValidInputWithoutArguments_ShouldReturnExpectedValue()
         {
+            tempFilePath = Path.Combine(Path.GetTempPath(), "tempFile.txt");
+            File.WriteAllText(tempFilePath, content);
+
             string expectedOutput = "Enter the path to the file: Line number with the highest amount: 7\r\n" +
                                     "List of lines with invalid elements: 4 5 6 9 ";
 

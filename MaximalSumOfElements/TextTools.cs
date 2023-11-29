@@ -41,13 +41,12 @@ namespace MaximalSumOfElements
             string[] textLines = text.Split('\n');
 
             int indexMaxSum = 0;
-            double maxSum = 0;
+            double maxSum = double.MinValue;
             List<int> brokenElements = new();
 
             for (int i = 0; i < textLines.Length; i++)
             {
-                double lineSum = 0;
-                if (!SumOfElementsInLine(textLines[i], out lineSum))
+                if (!SumOfElementsInLine(textLines[i], out var lineSum))
                 {
                     brokenElements.Add(i);
                 }
